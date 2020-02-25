@@ -1,0 +1,23 @@
+@import '~bootstrap/scss/bootstrap';
+
+$step: 50px; 
+
+.field {
+  background-color: #f9f9f9;
+  width: 100vw;
+  height: 100vh;
+}
+
+.snake {
+  position: absolute;
+}
+
+.snake-part {
+  background-color: purple;
+  border: 1px solid black;
+  width: $step; height: $step;
+}
+
+li {
+  list-style-type: none;
+}
