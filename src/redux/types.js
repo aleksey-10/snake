@@ -1,5 +1,5 @@
-export const MOVE_SNAKE_RIGHT = 'MOVE_SNAKE_RIGHT';
-export const MOVE_SNAKE_LEFT = 'MOVE_SNAKE_LEFT';
-export const MOVE_SNAKE_UP = 'MOVE_SNAKE_UP';
-export const MOVE_SNAKE_DOWN = 'MOVE_SNAKE_DOWN';
-export const STOP_TIMER = 'STOP_TIMER';
+export const MOVE_SNAKE_AC = 'MOVE_SNAKE_AC';
+export const SET_DIRECTION = 'SET_DIRECTION';
+export const CHECK_GAME_OVER = 'CHECK_GAME_OVER';
+export const SET_TARGET = 'SET_TARGET';
+export const CHECK_TARGET = 'CHECK_TARGET';
