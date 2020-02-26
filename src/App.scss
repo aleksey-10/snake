@@ -3,18 +3,19 @@
 $step: 50px; 
 
 .field {
-  background-color: #f9f9f9;
-  width: 100vw;
-  height: 100vh;
-}
-
-.snake {
-  position: absolute;
+  position: relative;
+  background-color: #f2f2f2;
+  border: 2px solid gray;
+  width: 600px;
+  height: 400px;
 }
 
 .snake-part {
-  background-color: purple;
+  position: absolute;
+  // background-color: purple;
+  background: url("https://lh3.googleusercontent.com/proxy/GI4RDpwcvuoor9mZYIvk-z2XsZ8zymzP0kpjisExhMf4TJP8vRWiqmcDzLBJH6AsUR2PKGVIPLr2ZDASKj-48ExSlBX0_k1-rNmsA67tNNc4dR2U");
   border: 1px solid black;
+  border-radius: 5px;
   width: $step; height: $step;
 }
 
