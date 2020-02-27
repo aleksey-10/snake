@@ -41,3 +41,9 @@ li {
   background-color: rgba(0,0,0,.5);
   text-align: center; color: $sec;
 }
+
+.small-score {
+  position: absolute;
+  left: 10px;
+  z-index: 2;
+}

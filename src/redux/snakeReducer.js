@@ -77,15 +77,12 @@ const snakeReducer = (state = initState, action) => {
             }
 
         case SET_TARGET:
-
             const createRandomCoor = () => (
                 {
                     left: ~~(Math.random() * state.field.width / state.step) * state.step,
                     top: ~~(Math.random() * state.field.height / state.step) * state.step
                 }
             )
-
-
 
             let targetCoor = createRandomCoor();
 
