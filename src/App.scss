@@ -1,31 +1,43 @@
 @import '~bootstrap/scss/bootstrap';
 
 $step: 50px; 
+$sec: #f2f2f2;
+
+body {
+  background-color: $sec;
+}
 
 .field {
+  overflow: hidden;
   position: relative;
-  margin: 50px;
-  background-color: #f2f2f2;
+  background: url("https://img.freepik.com/free-photo/sand_74190-171.jpg?size=626&ext=jpg");
   border: 2px solid gray;
   box-sizing: content-box;
+  outline: 1px solid orange;
 }
 
 .snake-part, .target {
   position: absolute;
-  border: 1px solid black;
-  border-radius: 5px;
-  width: $step; height: $step;
 }
 
 .snake-part{
+  margin: auto;
   z-index: 1;
-  background: url("https://lh3.googleusercontent.com/proxy/GI4RDpwcvuoor9mZYIvk-z2XsZ8zymzP0kpjisExhMf4TJP8vRWiqmcDzLBJH6AsUR2PKGVIPLr2ZDASKj-48ExSlBX0_k1-rNmsA67tNNc4dR2U");
+  border-radius: 20px;
+  transition: all 500ms;
+  background-color: rgb(17, 204, 32);
+  -webkit-box-shadow: 5px 5px 5px 0px #000000, inset 4px 4px 15px 0px #000000, 5px 5px 15px 5px rgba(0,0,0,0); 
+  box-shadow: 5px 5px 5px 0px #000000, inset 4px 4px 15px 0px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
 }
 
 li {
   list-style-type: none;
 }
 
-.target {
-  background-color:green;
+.game-over {
+  position: absolute;
+  z-index: 2;
+  left: 0; right: 0; bottom: 0; top: 0;
+  background-color: rgba(0,0,0,.5);
+  text-align: center; color: $sec;
 }

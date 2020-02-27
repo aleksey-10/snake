@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { setDirection, stopTimer, initTimer, setTarget } from '../../redux/snakeReducer';
 import Snake from './Snake/Snake';
 import Target from './Target/Target';
+import GameOver from './GameOver/GameOver';
 
 class FieldContainer extends React.Component {
 
@@ -11,10 +12,11 @@ class FieldContainer extends React.Component {
     }
 
     render() {
-        if (this.props.snake.gameOver) this.props.stopTimer();
-        if (this.props.snake.target) this.props.snake.target.goal && this.props.setTarget();
+        this.props.snake.gameOver && this.props.stopTimer();
+        this.props.snake.target.goal && this.props.setTarget();
 
-        return <div className="field" tabIndex='-1' style={{ ...this.props.snake.field }}
+        return <div className="field mx-auto mt-1" tabIndex='-1' 
+            style={{ ...this.props.snake.field }}
             onKeyDown={event => {
                 switch (event.key) {
                     case 'ArrowUp': this.props.setDirection('up'); break;
@@ -25,7 +27,8 @@ class FieldContainer extends React.Component {
                 }
             }}>
             <Snake snake={this.props.snake} />
-            {this.props.snake.target && <Target target={this.props.snake.target} />}
+            {this.props.snake.target && <Target target={this.props.snake.target} step={this.props.snake.step} />}
+            {this.props.snake.gameOver && <GameOver />}
         </div>
     }
 }

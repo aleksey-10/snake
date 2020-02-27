@@ -2,17 +2,20 @@ import { MOVE_SNAKE_AC, SET_DIRECTION, CHECK_GAME_OVER, SET_TARGET, CHECK_TARGET
 
 const initState = {
     step: 50,
-    field: { width: 600, height: 400 },
+    field: { width: 900, height: 600 },
 
     pieces: [
-        { id: 0, coor: { left: 150, top: 100 } },
+        { id: 0, coor: { left: 150, top: 100 }, bg: 'rgb(27, 146, 37)' },
         { id: 1, coor: { left: 100, top: 100 } },
-        { id: 2, coor: { left: 50, top: 100 } },
-        { id: 3, coor: { left: 0, top: 100 } }
+        { id: 2, coor: { left: 50, top: 100 } }
     ],
 
     direction: 'right',
-    gameOver: false
+    gameOver: false,
+    target: {
+        background: 'appleImg',
+        goal: false
+    }
 }
 
 const snakeReducer = (state = initState, action) => {
@@ -57,8 +60,8 @@ const snakeReducer = (state = initState, action) => {
 
         case CHECK_GAME_OVER:
             let GO = false;
-            
-            headCoor = state.pieces.filter( item => item.id === 0)[0].coor;
+
+            headCoor = state.pieces.filter(item => item.id === 0)[0].coor;
 
             if (headCoor.left + state.step > state.field.width || headCoor.left < 0 ||
                 headCoor.top + state.step > state.field.height || headCoor.top < 0 ||
@@ -74,30 +77,46 @@ const snakeReducer = (state = initState, action) => {
             }
 
         case SET_TARGET:
-            console.log('hello')
+
+            const createRandomCoor = () => (
+                {
+                    left: ~~(Math.random() * state.field.width / state.step) * state.step,
+                    top: ~~(Math.random() * state.field.height / state.step) * state.step
+                }
+            )
+
+
+
+            let targetCoor = createRandomCoor();
+
+            state.pieces.forEach(item => {
+                if (targetCoor.left === item.coor.left && targetCoor.top === item.coor.top) targetCoor = createRandomCoor();
+            })
+
             return {
                 ...state,
                 target: {
                     goal: false,
-                    coor: {
-                        left: ~~(Math.random() * state.field.width / state.step) * state.step,
-                        top: ~~(Math.random() * state.field.height / state.step) * state.step
-                    }
+                    coor: { ...targetCoor }
                 }
             }
 
         case CHECK_TARGET:
-
             if (!state.target.coor) return state;
 
-            headCoor = state.pieces.filter( item => item.id === 0)[0].coor;
+            headCoor = state.pieces.filter(item => item.id === 0)[0].coor;
+            let tailCoor = state.pieces[state.pieces.length - 1].coor;
 
             return (headCoor.top === state.target.coor.top && headCoor.left === state.target.coor.left) ? {
-                    ...state,
-                    target: {
-                        goal: true
-                    }
-                } : state;
+                ...state,
+                pieces: [
+                    ...state.pieces,
+                    { id: state.pieces.length, coor: { ...tailCoor } } // create new piece of snake
+                ],
+                target: {
+                    goal: true
+                }
+            } : state;
 
         default:
             return state;
@@ -112,6 +131,7 @@ let checkGameOver = () => ({ type: CHECK_GAME_OVER })
 export let setTarget = () => ({ type: SET_TARGET })
 let checkTarget = () => ({ type: CHECK_TARGET })
 
+
 export const initTimer = () => dispatch => {
     dispatch(setTarget());
 
@@ -124,7 +144,6 @@ export const initTimer = () => dispatch => {
 }
 
 export const stopTimer = () => dispatch => {
-    console.log('GAME OVER!');
     clearInterval(timer);
 }
 
