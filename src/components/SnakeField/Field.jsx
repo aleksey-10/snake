@@ -30,9 +30,9 @@ class FieldContainer extends React.Component {
             this.props.setScore(this.props.snake.pieces.length);
         } 
 
-        return <div className="field mx-auto mt-1" tabIndex='-1' 
+        return <div className="field mx-auto mt-1" tabIndex="-1" 
             style={{ ...this.props.snake.field }}
-            onKeyDown={this.handleOnKeyDown}>
+            onKeyDown={this.handleOnKeyDown} autofocus="true" >
 
             <small className="small-score" >{this.props.score.points}</small>
             <Snake snake={this.props.snake} />

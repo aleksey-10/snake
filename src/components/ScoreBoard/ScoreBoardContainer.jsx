@@ -12,8 +12,8 @@ class ScoreBoardContainer extends React.Component {
     render() {
         return <div style={{ width: this.props.field.width }} className="m-auto">
 
-        <button type="button" className="btn  mt-2 w-100" data-toggle="modal" data-target="#exampleModal">
-            Show score board
+        <button type="button" className="btn btn-info mt-2 w-100" data-toggle="modal" data-target="#exampleModal">
+            Show scoreboard
         </button>
     
         <ScoreBoardModal {...this.props} />

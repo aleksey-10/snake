@@ -10,7 +10,8 @@ body {
 .field {
   overflow: hidden;
   position: relative;
-  background: url("https://img.freepik.com/free-photo/sand_74190-171.jpg?size=626&ext=jpg");
+  background: url("https://img.freepik.com/free-photo/sand_74190-171.jpg?size=626&ext=jpg") no-repeat;
+  background-size: 100%;
   border: 2px solid gray;
   box-sizing: content-box;
   outline: 1px solid orange;

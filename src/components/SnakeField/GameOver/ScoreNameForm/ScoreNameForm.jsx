@@ -10,9 +10,6 @@ const ScoreNameForm = props => <form onSubmit={props.handleSubmit}>
             <Field component={InputName} placeholder="Name" name="name" validate={[required, minLength3]}
                 type="text" className="form-control"
                 aria-label="Recipient's username" aria-describedby="button-addon" />
-            <div className="input-group-append">
-                <button className="btn btn-outline-light" type="submit" id="button-addon">OK</button>
-            </div>
         </div>
     </form>
 

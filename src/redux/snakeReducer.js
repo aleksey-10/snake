@@ -2,7 +2,7 @@ import { MOVE_SNAKE_AC, SET_DIRECTION, CHECK_GAME_OVER, SET_TARGET, CHECK_TARGET
 
 const initState = {
     step: 50,
-    field: { width: 600, height: 400 },
+    field: { width: 750, height: 500 },
 
     pieces: [
         { id: 0, coor: { left: 100, top: 100 }, bg: 'rgb(27, 146, 37)' },
