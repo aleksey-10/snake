@@ -4,6 +4,8 @@ import ScoreNameForm from './ScoreNameForm/ScoreNameForm';
 export default props => {
 
     const addScoreName = (values) => {
+        props.sendScore(values.name, props.score.points);
+        props.initTimer();
     }
 
     return <div className="game-over row align-items-center justify-content-center">
@@ -11,7 +13,9 @@ export default props => {
             <h1 className="display-4 m-3">GAME OVER</h1>
             Your score {props.score.points || 3}
             <ScoreNameForm onSubmit={addScoreName} />
-            <div className="col-12 mt-5"><button className="btn btn-outline-light btn-lg">Try again</button> </div>
+            <div className="col-12 mt-5">
+                <button className="btn btn-outline-light btn-lg" onClick={() => props.initTimer()} >Try again</button>
+            </div>
         </div>
     </div>
 }

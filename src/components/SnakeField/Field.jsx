@@ -4,7 +4,7 @@ import { setDirection, stopTimer, initTimer, setTarget } from '../../redux/snake
 import Snake from './Snake/Snake';
 import Target from './Target/Target';
 import GameOver from './GameOver/GameOver';
-import { setScore } from '../../redux/scoreReducer';
+import { setScore, sendScore  } from '../../redux/scoreReducer';
 
 class FieldContainer extends React.Component {
 
@@ -27,7 +27,7 @@ class FieldContainer extends React.Component {
         this.props.snake.gameOver && this.props.stopTimer();
         if (this.props.snake.target.goal) {
             this.props.setTarget();
-            this.props.setScore();
+            this.props.setScore(this.props.snake.pieces.length);
         } 
 
         return <div className="field mx-auto mt-1" tabIndex='-1' 
@@ -37,7 +37,7 @@ class FieldContainer extends React.Component {
             <small className="small-score" >{this.props.score.points}</small>
             <Snake snake={this.props.snake} />
             {this.props.snake.target && <Target target={this.props.snake.target} step={this.props.snake.step} />}
-            {this.props.snake.gameOver && <GameOver score={this.props.score}/>}
+            {this.props.snake.gameOver && <GameOver {...this.props} />}
 
         </div>
     }
@@ -48,5 +48,6 @@ const mapStateToProps = state => ({
     score: state.score
 })
 
-export default connect(mapStateToProps, { setDirection, initTimer, stopTimer, setTarget, setScore })(FieldContainer)
+export default connect(mapStateToProps, 
+    { setDirection, initTimer, stopTimer, setTarget, setScore, sendScore })(FieldContainer)
 

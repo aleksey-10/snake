@@ -24,7 +24,7 @@ body {
   margin: auto;
   z-index: 1;
   border-radius: 20px;
-  transition: all 500ms;
+  transition: all 500ms linear;
   background-color: rgb(17, 204, 32);
   -webkit-box-shadow: 5px 5px 5px 0px #000000, inset 4px 4px 15px 0px #000000, 5px 5px 15px 5px rgba(0,0,0,0); 
   box-shadow: 5px 5px 5px 0px #000000, inset 4px 4px 15px 0px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
@@ -46,4 +46,14 @@ li {
   position: absolute;
   left: 10px;
   z-index: 2;
+}
+
+.error-alert {
+  position: absolute;
+  z-index: 1;
+  bottom: 100%;
+}
+
+.buddy-score:nth-child(even) {
+  background-color: $sec;
 }

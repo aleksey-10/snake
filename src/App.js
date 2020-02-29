@@ -3,6 +3,7 @@ import './App.scss';
 import SnakeField from './components/SnakeField/Field';
 import Header from './components/Header/Header';
 import Alert from './components/Alert/Alert';
+import ScoreBoardContainer from './components/ScoreBoard/ScoreBoardContainer';
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <Header />
       <Alert />
       <SnakeField />
+      <ScoreBoardContainer />
     </>
   );
 }

@@ -1,13 +1,13 @@
-import { MOVE_SNAKE_AC, SET_DIRECTION, CHECK_GAME_OVER, SET_TARGET, CHECK_TARGET } from './types';
+import { MOVE_SNAKE_AC, SET_DIRECTION, CHECK_GAME_OVER, SET_TARGET, CHECK_TARGET, RESET_SNAKE } from './types';
 
 const initState = {
     step: 50,
-    field: { width: 900, height: 600 },
+    field: { width: 600, height: 400 },
 
     pieces: [
-        { id: 0, coor: { left: 150, top: 100 }, bg: 'rgb(27, 146, 37)' },
-        { id: 1, coor: { left: 100, top: 100 } },
-        { id: 2, coor: { left: 50, top: 100 } }
+        { id: 0, coor: { left: 100, top: 100 }, bg: 'rgb(27, 146, 37)' },
+        { id: 1, coor: { left: 50, top: 100 } },
+        { id: 2, coor: { left: 0, top: 100 } }
     ],
 
     direction: 'right',
@@ -36,6 +36,7 @@ const snakeReducer = (state = initState, action) => {
                             case 'up': item.coor.top -= state.step; break;
                             case 'down': item.coor.top += state.step; break;
                             case 'left': item.coor.left -= state.step; break;
+                            default: return state;
                         }
                     } else {
                         let prevCoor = { ...item.coor };
@@ -47,11 +48,21 @@ const snakeReducer = (state = initState, action) => {
                 })
             }
 
+        case RESET_SNAKE:
+
+            return {
+                ...initState,
+                pieces: [
+                    { id: 0, coor: { left: 100, top: 100 }, bg: 'rgb(27, 146, 37)' },
+                    { id: 1, coor: { left: 50, top: 100 } },
+                    { id: 2, coor: { left: 0, top: 100 } }]
+            }
+
         case SET_DIRECTION:
-            if (action.direction === "left" && state.direction === "right" ||
-                action.direction === "right" && state.direction === "left" ||
-                action.direction === "up" && state.direction === "down" ||
-                action.direction === "down" && state.direction === "up") return state;
+            if ((action.direction === "left" && state.direction === "right") ||
+                (action.direction === "right" && state.direction === "left") ||
+                (action.direction === "up" && state.direction === "down") ||
+                (action.direction === "down" && state.direction === "up")) return state;
 
             return {
                 ...state,
@@ -65,30 +76,32 @@ const snakeReducer = (state = initState, action) => {
 
             if (headCoor.left + state.step > state.field.width || headCoor.left < 0 ||
                 headCoor.top + state.step > state.field.height || headCoor.top < 0 ||
-                state.pieces.filter(item => {
+                state.pieces.filter(item => { /* check snake body coors === target coors */
                     if (!item.id) return false;
-                    if (item.coor.top === headCoor.top && item.coor.left === headCoor.left) return true;
-                }).length) GO = true;
+                    return (item.coor.top === headCoor.top && item.coor.left === headCoor.left) ? true : false;
+                }).length ||
+                state.field.width * state.field.height / state.step ** 2 === state.pieces.length  /* check win */) GO = true;
 
             return !GO ? state : {
                 ...state,
-                field: { ...state.field, backgroundColor: 'lightgray' },
                 gameOver: true
             }
 
         case SET_TARGET:
-            const createRandomCoor = () => (
-                {
+            let isCoor = false, targetCoor;
+
+            while (!isCoor && !state.gameOver) {
+                isCoor = true;
+
+                targetCoor = {
                     left: ~~(Math.random() * state.field.width / state.step) * state.step,
                     top: ~~(Math.random() * state.field.height / state.step) * state.step
-                }
-            )
+                };
 
-            let targetCoor = createRandomCoor();
-
-            state.pieces.forEach(item => {
-                if (targetCoor.left === item.coor.left && targetCoor.top === item.coor.top) targetCoor = createRandomCoor();
-            })
+                state.pieces.forEach(item => {
+                    if (targetCoor.left === item.coor.left && targetCoor.top === item.coor.top) isCoor = false;
+                })
+            }
 
             return {
                 ...state,
@@ -123,6 +136,7 @@ const snakeReducer = (state = initState, action) => {
 export default snakeReducer;
 
 let moveSnake = () => ({ type: MOVE_SNAKE_AC })
+let resetSnake = () => ({ type: RESET_SNAKE })
 export let setDirection = (direction) => ({ type: SET_DIRECTION, direction })
 let checkGameOver = () => ({ type: CHECK_GAME_OVER })
 export let setTarget = () => ({ type: SET_TARGET })
@@ -130,6 +144,7 @@ let checkTarget = () => ({ type: CHECK_TARGET })
 
 
 export const initTimer = () => dispatch => {
+    dispatch(resetSnake());
     dispatch(setTarget());
 
     timer = setInterval(() => {
