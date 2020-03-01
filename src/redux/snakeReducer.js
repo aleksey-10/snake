@@ -13,20 +13,21 @@ const initState = {
     direction: 'right',
     gameOver: false,
     target: {
-        background: 'appleImg',
+        // background: 'appleImg',
         goal: false
     }
 }
 
 const snakeReducer = (state = initState, action) => {
-    let headCoor;
+    let headCoor = state.pieces.find(item => item.id === 0).coor;
 
     switch (action.type) {
         case MOVE_SNAKE_AC:
-            let coor;
+            let coor = {};
 
             return {
                 ...state,
+                lock: false,
                 pieces: state.pieces.map(item => {
                     if (!item.id) {
                         coor = { ...item.coor }
@@ -49,7 +50,6 @@ const snakeReducer = (state = initState, action) => {
             }
 
         case RESET_SNAKE:
-
             return {
                 ...initState,
                 pieces: [
@@ -66,13 +66,12 @@ const snakeReducer = (state = initState, action) => {
 
             return {
                 ...state,
+                lock: true,
                 direction: action.direction
             }
 
         case CHECK_GAME_OVER:
             let GO = false;
-
-            headCoor = state.pieces.filter(item => item.id === 0)[0].coor;
 
             if (headCoor.left + state.step > state.field.width || headCoor.left < 0 ||
                 headCoor.top + state.step > state.field.height || headCoor.top < 0 ||
@@ -106,6 +105,7 @@ const snakeReducer = (state = initState, action) => {
             return {
                 ...state,
                 target: {
+                    ...state.target,
                     goal: false,
                     coor: { ...targetCoor }
                 }
@@ -114,8 +114,7 @@ const snakeReducer = (state = initState, action) => {
         case CHECK_TARGET:
             if (!state.target.coor) return state;
 
-            headCoor = state.pieces.filter(item => item.id === 0)[0].coor;
-            let tailCoor = state.pieces[state.pieces.length - 1].coor;
+            const tailCoor = state.pieces.find( item => item.id === state.pieces.length-1).coor;
 
             return (headCoor.top === state.target.coor.top && headCoor.left === state.target.coor.left) ? {
                 ...state,
@@ -124,6 +123,7 @@ const snakeReducer = (state = initState, action) => {
                     { id: state.pieces.length, coor: { ...tailCoor } } // create new piece of snake
                 ],
                 target: {
+                    ...state.target,
                     goal: true
                 }
             } : state;

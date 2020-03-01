@@ -10,7 +10,7 @@ const scoreReducer = (state = initState, action) => {
         case SET_SCORE:
             return {
                 ...state,
-                points: action.score 
+                points: action.score
             }
 
         case SET_SCORE_BOARD:
@@ -39,6 +39,6 @@ export const sendScore = (name, points) => dispatch => {
 export const getScoreBoard = () => dispatch => {
     scoreAPI.getScores()
         .then(data => {
-            data && dispatch(setScoreBoard([...Object.values(data)])) 
+            data && dispatch(setScoreBoard([...Object.values(data)]))
         })
 }

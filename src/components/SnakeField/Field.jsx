@@ -13,6 +13,9 @@ class FieldContainer extends React.Component {
     }
 
     handleOnKeyDown = event => {
+
+        if (this.props.snake.lock) return;
+        
         switch (event.key) {
             case 'ArrowUp': this.props.setDirection('up'); break;
             case 'ArrowRight': this.props.setDirection('right'); break;
