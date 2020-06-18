@@ -1,11 +1,14 @@
-<a href="https://aleksey-10.github.io/snake">Start play</a>
+# Snake App
+[START PLAY](https://aleksey-10.github.io/snake)
 
-Snake v1.0
+## Tech stack
+- React js
+- Redux (Thunks, redux-form)
+- Axios
+- Bootstrap
 
-Tech stack:
+## Install
+npm install
 
-1. React js
-2. Redux (Thunks, redux-form)
-3. Axios
-4. Bootstrap
-5. SCSS
+## Run
+npm start
